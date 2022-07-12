@@ -49,6 +49,7 @@ app.post('/api/stuff', (req, res, next) => {
     );
   });
 
+// retrieving from the server - GET route 
 app.get('/api/stuff/:id', (req, res, next) => {
     Thing.findOne({
         _id: req.params.id 
@@ -65,7 +66,32 @@ app.get('/api/stuff/:id', (req, res, next) => {
     );
 });
 
-// api route
+// modify existing data - PUT route
+app.put('/api/stuff/:id', (req, res, next) => {
+  const thing = new Thing({
+    _id: req.params.id,
+    title: req.body.title,
+    description: req.body.description,
+    imageUrl: req.body.imageUrl,
+    price: req.body.price,
+    userId: req.body.userId
+  });
+  Thing.updateOne({_id: req.params.id}, thing).then(
+    () => {
+      res.status(201).json({
+        message: 'Thing updated successfully!'
+      });
+    }
+  ).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  );
+});
+
+// finding the data from 'Thing'
 app.use('/api/stuff', (req, res, next) => {
     Thing.find().then(
       (things) => {
