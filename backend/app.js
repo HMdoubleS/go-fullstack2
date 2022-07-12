@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// routes
 // sending to the server - POST route
 app.post('/api/stuff', (req, res, next) => {
     const thing = new Thing({
@@ -80,6 +81,23 @@ app.put('/api/stuff/:id', (req, res, next) => {
     () => {
       res.status(201).json({
         message: 'Thing updated successfully!'
+      });
+    }
+  ).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  );
+});
+
+// DELETE
+app.delete('/api/stuff/:id' , (req, res, next) => {
+  Thing.deleteOne({_id: req.params.id}).then(
+    () => {
+      res.status(200).json({
+        message: 'Deleted!'
       });
     }
   ).catch(
