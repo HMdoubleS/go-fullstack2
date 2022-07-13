@@ -5,7 +5,7 @@ const Thing = require('../models/thing'); // importing Thing
 
 // routes
 // sending to the server - POST route - CREATE
-router.post('/api/stuff', (req, res, next) => {
+router.post('/', (req, res, next) => {
     const thing = new Thing({
       title: req.body.title,
       description: req.body.description,
@@ -29,7 +29,7 @@ router.post('/api/stuff', (req, res, next) => {
   });
 
 // retrieving from the server - GET route - RECEIVE
-router.get('/api/stuff/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     Thing.findOne({
         _id: req.params.id 
     }).then(
@@ -45,8 +45,8 @@ router.get('/api/stuff/:id', (req, res, next) => {
     );
 });
 
-// modify existing data - PUT route
-router.put('/api/stuff/:id', (req, res, next) => {
+// modify existing data - PUT route - EDIT
+router.put(':id', (req, res, next) => {
   const thing = new Thing({
     _id: req.params.id,
     title: req.body.title,
@@ -71,7 +71,7 @@ router.put('/api/stuff/:id', (req, res, next) => {
 });
 
 // DELETE
-router.delete('/api/stuff/:id' , (req, res, next) => {
+router.delete(':id' , (req, res, next) => {
   Thing.deleteOne({_id: req.params.id}).then(
     () => {
       res.status(200).json({
@@ -88,7 +88,7 @@ router.delete('/api/stuff/:id' , (req, res, next) => {
 });
 
 // finding the data from 'Thing' - GET route
-router.get('/api/stuff', (req, res, next) => {
+router.get('/', (req, res, next) => {
     Thing.find().then(
       (things) => {
         res.status(200).json(things);

@@ -1,7 +1,7 @@
 const express = require('express'); // imports framework
 const mongoose = require('mongoose'); 
 
-const Thing = require('./models/thing'); // imports the mongoose model
+const stuffRoutes = require('./routes/stuff');
 
 const app = express();
 
@@ -24,6 +24,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+app.use('/api/stuff', stuffRoutes);
 
 module.exports = app;
 
