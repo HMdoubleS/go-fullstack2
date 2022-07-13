@@ -1,23 +1,5 @@
 const Thing = require('../models/thing');
 
-// in controllers/stuff.js
-
-const Thing = require('../models/thing');
-
-exports.getAllStuff = (req, res, next) => {
-    Thing.find().then(
-      (things) => {
-        res.status(200).json(things);
-      }
-    ).catch(
-      (error) => {
-        res.status(400).json({
-          error: error
-        });
-      }
-   );
-};
-
 exports.createThing = (req, res, next) => {
   const thing = new Thing({
     title: req.body.title,
@@ -98,3 +80,16 @@ exports.deleteThing = (req, res, next) => {
    );
 };
 
+exports.getAllStuff = (req, res, next) => {
+  Thing.find().then(
+    (things) => {
+      res.status(200).json(things);
+    }
+  ).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+ );
+};
