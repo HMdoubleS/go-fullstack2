@@ -2,7 +2,8 @@ const Thing = require('../models/thing');
 const fs = require('fs'); // file system
 
 exports.createThing = (req, res, next) => {
-  req.body.thing = JSON.parse(req.body.thing);
+  // console.log(req.file);
+  req.body.thing = req.body;
   const url = req.protocol + '://' + req.get('host');
   const thing = new Thing({
     title: req.body.thing.title,
@@ -11,6 +12,7 @@ exports.createThing = (req, res, next) => {
     price: req.body.thing.price,
     userId: req.body.thing.userId
   });
+  console.log(thing);
   thing.save().then(
     () => {
       res.status(201).json({

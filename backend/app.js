@@ -1,7 +1,7 @@
 const express = require('express'); // imports framework
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); 
 const path = require('path');
+const dotenv = require('dotenv').config();
 
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 // connecting MongoDB Atlas
-mongoose.connect('mongodb+srv://hannah:DN5w4XrdC8GBUeZg@cluster0.cem88.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('Successfully connected to MongoDB Atlas!');    
     })
@@ -17,6 +17,8 @@ mongoose.connect('mongodb+srv://hannah:DN5w4XrdC8GBUeZg@cluster0.cem88.mongodb.n
         console.log('Unable to connect to MongoDB Atlas!');
         console.error(error);
     });
+
+app.use(express.json());
 
 // setting headers 
 app.use((req, res, next) => {
@@ -26,7 +28,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(bodyParser.json());
+
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
