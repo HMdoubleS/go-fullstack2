@@ -6,12 +6,19 @@ exports.createThing = (req, res, next) => {
   req.body.thing = req.body;
   const url = req.protocol + '://' + req.get('host');
   const thing = new Thing({
-    title: req.body.thing.title,
-    description: req.body.thing.description,
+    title: req.body.title,
+    description: req.body.description,
     imageUrl: url + '/images/' + req.file.filename,
-    price: req.body.thing.price,
-    userId: req.body.thing.userId
+    price: req.body.price,
+    userId: req.body.userId
   });
+  // const thing = new Thing({
+  //   title: req.body.thing.title,
+  //   description: req.body.thing.description,
+  //   imageUrl: url + '/images/' + req.file.filename,
+  //   price: req.body.thing.price,
+  //   userId: req.body.thing.userId
+  // });
   console.log(thing);
   thing.save().then(
     () => {

@@ -8,8 +8,9 @@ const userRoutes = require('./routes/user');
 
 const app = express();
 
+const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.cem88.mongodb.net/test?retryWrites=true&w=majority`
 // connecting MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(connectionString)
     .then(() => {
         console.log('Successfully connected to MongoDB Atlas!');    
     })
